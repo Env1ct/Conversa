@@ -1,0 +1,61 @@
+{
+  "name": "conversa-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend para Conversa.ai - Plataforma de chatbots con IA",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:seed": "ts-node src/scripts/seed.ts",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
+  },
+  "keywords": ["chatbot", "ai", "saas", "conversational-ai"],
+  "author": "Tu nombre",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "socket.io": "^4.7.4",
+    "@prisma/client": "^5.7.1",
+    "prisma": "^5.7.1",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "stripe": "^14.9.0",
+    "zod": "^3.22.4",
+    "openai": "^4.20.1",
+    "@anthropic-ai/sdk": "^0.9.1",
+    "@google/generative-ai": "^0.2.1",
+    "multer": "^1.4.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.4",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/multer": "^1.4.11",
+    "@types/socket.io": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.8",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

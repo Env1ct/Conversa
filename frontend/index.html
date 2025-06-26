@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversa.ai - Automatiza tu atención al cliente con IA conversacional</title>
+    <meta name="description" content="Crea asistentes virtuales inteligentes especializados para tu industria. Reduce costos operativos hasta un 80% mientras mejoras la experiencia de tus clientes.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Conversa.ai - IA Conversacional para tu Negocio">
+    <meta property="og:description" content="Automatiza tu atención al cliente con IA avanzada. Implementación en 5 minutos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://conversa.ai">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                        accent: '#06B6D4',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'typing': 'typing 2s steps(20, end), blink-caret 0.75s step-end infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        'blink-caret': {
+                            'from, to': { 'border-color': 'transparent' },
+                            '50%': { 'border-color': '#4F46E5' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .typing-animation {
+            border-right: 2px solid #4F46E5;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        .chat-bubble-user {
+            background: #4F46E5;
+            color: white;
+            border-radius: 18px 18px 4px 18px;
+            margin-left: auto;
+        }
+        .chat-bubble-bot {
+            background: #F1F5F9;
+            color: #1E293B;
+            border-radius: 18px 18px 18px 4px;
+            margin-right: auto;
+        }
+        .pricing-toggle {
+            background: #F1F5F9;
+            border-radius: 12px;
+            padding: 4px;
+        }
+        .pricing-toggle button.active {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-primary">ConversaAI</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#caracteristicas" class="text-gray-600 hover:text-primary transition-colors font-medium">Características</a>
+                    <a href="#precios" class="text-gray-600 hover:text-primary transition-colors font-medium">Precios</a>
+                    <a href="#industrias" class="text-gray-600 hover:text-primary transition-colors font-medium">Industrias</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="openLoginModal()" class="text-gray-600 hover:text-primary transition-colors font-medium">
+                        Iniciar Sesión
+                    </button>
+                    <button onclick="openSignupModal()" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-all transform hover:scale-105 font-medium">
+                        Crear Cuenta
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 py-4 space-y-4">
+                <a href="#caracteristicas" class="block text-gray-600 font-medium">Características</a>
+                <a href="#precios" class="block text-gray-600 font-medium">Precios</a>
+                <a href="#industrias" class="block text-gray-600 font-medium">Industrias</a>
+                <button onclick="openLoginModal()" class="block w-full text-left text-gray-600 font-medium">Iniciar Sesión</button>
+                <button onclick="openSignupModal()" class="block w-full bg-primary text-white px-4 py-2 rounded-full text-center font-medium">
+                    Crear Cuenta
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full animate-float"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full animate-float" style="animation-delay: -3s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div class="text-white animate-slide-up">
+                    <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Automatiza tu<br>
+                        atención al<br>
+                        cliente con IA<br>
+                        conversacional
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed">
+                        Crea asistentes virtuales inteligentes especializados para tu industria. 
+                        Reduce costos operativos hasta un 80% mientras mejoras la experiencia de tus clientes.
+                    </p>
+                    <button onclick="openSignupModal()" class="bg-white text-primary px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all transform hover:scale-105 shadow-lg">
+                        Comenzar Ahora
+                    </button>
+                </div>
+                
+                <!-- Demo Chat -->
+                <div class="animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="glass-effect rounded-2xl p-6 max-w-md mx-auto">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span class="text-white/80 text-sm ml-4">ConversaAI en acción</span>
+                        </div>
+                        
+                        <div id="chatDemo" class="space-y-4 h-80 overflow-y-auto">
+                            <!-- Chat messages will be inserted here -->
+                        </div>
+                        
+                        <div class="mt-4 flex items-center space-x-2">
+                            <div class="flex-1 bg-white/20 rounded-full px-4 py-2">
+                                <span class="text-white/60 text-sm">Escribe tu mensaje...</span>
+                            </div>
+                            <button class="bg-white/20 p-2 rounded-full">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-8 mt-20 text-center">
+                <div class="animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="text-4xl font-bold text-white mb-2">80%</div>
+                        <div class="text-white/80">Reducción de costos</div>
+                    </div>
+                </div>
+                <div class="animate-slide-up" style="animation-delay: 0.8s;">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="text-4xl font-bold text-white mb-2">24/7</div>
+                        <div class="text-white/80">Disponibilidad</div>
+                    </div>
+                </div>
+                <div class="animate-slide-up" style="animation-delay: 1s;">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="text-4xl font-bold text-white mb-2">95%</div>
+                        <div class="text-white/80">Precisión IA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="caracteristicas" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    ¿Por qué elegir <span class="text-primary">ConversaAI</span>?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Nuestra plataforma combina lo mejor de la IA conversacional con la facilidad de uso que tu equipo necesita.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">IA Multimodelo</h3>
+                    <p class="text-gray-600 mb-6">
+                        Integración con GPT-4, Claude y Gemini. La mejor IA para cada tipo de conversación.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                            Respuestas contextuales
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                            Procesamiento de lenguaje natural
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                            Aprendizaje continuo
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Implementación Rápida</h3>
+                    <p class="text-gray-600 mb-6">
+                        Configura tu chatbot en menos de 5 minutos. Sin conocimientos técnicos necesarios.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
+                            Setup automático
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
+                            Widget personalizable
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
+                            Integración universal
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Analytics Avanzado</h3>
+                    <p class="text-gray-600 mb-6">
+                        Métricas detalladas sobre el rendimiento de tus chatbots y satisfacción del cliente.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            Dashboard en tiempo real
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            Análisis de sentimientos
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            Reportes automáticos
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Seguridad Enterprise</h3>
+                    <p class="text-gray-600 mb-6">
+                        Cumplimiento GDPR, SOC 2 y certificaciones de seguridad de nivel empresarial.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            Cifrado end-to-end
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            Auditorías de seguridad
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            Compliance automático
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Integraciones Nativas</h3>
+                    <p class="text-gray-600 mb-6">
+                        Conecta con tus herramientas favoritas: CRM, help desk, ecommerce y más.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                            Salesforce, HubSpot
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                            Shopify, WooCommerce
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                            API REST completa
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Base de Conocimiento</h3>
+                    <p class="text-gray-600 mb-6">
+                        Entrena tu chatbot con documentos, PDFs, sitios web y bases de datos existentes.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                            Procesamiento automático
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                            Búsqueda vectorial
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                            Actualización en tiempo real
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="precios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    Precios <span class="text-primary">transparentes</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Sin sorpresas, sin fees ocultos. Elige el plan perfecto para tu negocio.
+                </p>
+                
+                <!-- Pricing Toggle -->
+                <div class="pricing-toggle inline-flex items-center">
+                    <button id="monthlyBtn" class="px-6 py-2 text-sm font-medium text-gray-600 transition-all active" onclick="togglePricing('monthly')">
+                        Mensual
+                    </button>
+                    <button id="annualBtn" class="px-6 py-2 text-sm font-medium text-gray-600 transition-all" onclick="togglePricing('annual')">
+                        Anual <span class="text-green-600 text-xs font-semibold ml-1">(-20%)</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-primary/20 transition-all">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-2">Starter</h3>
+                        <div class="mb-4">
+                            <span id="starter-price" class="text-4xl font-bold">29€</span>
+                            <span class="text-gray-600">/mes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Perfecto para empezar</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            IA básica incluida
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Widget personalizable
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Soporte por email
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openSignupModal('starter')" class="w-full bg-gray-900 text-white py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+                        Comenzar
+                    </button>
+                </div>
+                
+                <!-- Professional Plan -->
+                <div class="bg-white border-2 border-primary rounded-2xl p-8 relative shadow-xl transform scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold">Más Popular</span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-2">Professional</h3>
+                        <div class="mb-4">
+                            <span id="professional-price" class="text-4xl font-bold">79€</span>
+                            <span class="text-gray-600">/mes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Para empresas en crecimiento</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            5 agentes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            2,000 conversaciones/mes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            IA avanzada (GPT-4)
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Base de conocimiento
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Analytics avanzado
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Integraciones CRM
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openSignupModal('professional')" class="w-full bg-primary text-white py-3 rounded-full font-semibold hover:bg-primary/90 transition-colors">
+                        Comenzar
+                    </button>
+                </div>
+                
+                <!-- Business Plan -->
+                <div class="bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-primary/20 transition-all">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-2">Business</h3>
+                        <div class="mb-4">
+                            <span id="business-price" class="text-4xl font-bold">149€</span>
+                            <span class="text-gray-600">/mes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Para equipos grandes</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            10 agentes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            5,000 conversaciones/mes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Multi-modelo IA
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            API completa
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Webhooks
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Soporte prioritario
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openSignupModal('business')" class="w-full bg-gray-900 text-white py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+                        Comenzar
+                    </button>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-primary/20 transition-all">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                        <div class="mb-4">
+                            <span id="enterprise-price" class="text-4xl font-bold">299€</span>
+                            <span class="text-gray-600">/mes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Para grandes empresas</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Agentes ilimitados
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            15,000 conversaciones/mes
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Claude + GPT-4 Premium
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Compliance SOC2/HIPAA
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Soporte dedicado
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Implementación personalizada
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openSignupModal('enterprise')" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-full font-semibold hover:opacity-90 transition-opacity">
+                        Contactar Ventas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="industrias" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    Especializado para tu <span class="text-primary">industria</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Nuestros chatbots están optimizados para los desafíos específicos de cada sector.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">E-commerce</h3>
+                    <p class="text-gray-600 mb-6">
+                        Aumenta las ventas con recomendaciones personalizadas, soporte de productos y gestión de pedidos automatizada.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Recomendaciones de productos</li>
+                        <li>• Seguimiento de pedidos</li>
+                        <li>• Soporte post-venta</li>
+                        <li>• Recuperación de carritos abandonados</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Inmobiliaria</h3>
+                    <p class="text-gray-600 mb-6">
+                        Califica leads automáticamente, programa visitas y proporciona información detallada de propiedades 24/7.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Calificación de leads</li>
+                        <li>• Información de propiedades</li>
+                        <li>• Programación de visitas</li>
+                        <li>• Calculadoras de hipotecas</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Salud</h3>
+                    <p class="text-gray-600 mb-6">
+                        Triaje de síntomas, programación de citas y información médica confiable con cumplimiento HIPAA.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Triaje de síntomas</li>
+                        <li>• Programación de citas</li>
+                        <li>• Información médica</li>
+                        <li>• Cumplimiento HIPAA</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Finanzas</h3>
+                    <p class="text-gray-600 mb-6">
+                        Asesoramiento financiero, consultas de cuentas y soporte de productos bancarios con máxima seguridad.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Consultas de cuentas</li>
+                        <li>• Asesoramiento financiero</li>
+                        <li>• Productos bancarios</li>
+                        <li>• Seguridad avanzada</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Educación</h3>
+                    <p class="text-gray-600 mb-6">
+                        Tutorías personalizadas, resolución de dudas y soporte académico disponible las 24 horas del día.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Tutorías personalizadas</li>
+                        <li>• Resolución de dudas</li>
+                        <li>• Soporte académico</li>
+                        <li>• Evaluaciones automáticas</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Hotelería</h3>
+                    <p class="text-gray-600 mb-6">
+                        Reservas automáticas, información turística y soporte a huéspedes en múltiples idiomas.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>• Reservas automáticas</li>
+                        <li>• Información turística</li>
+                        <li>• Soporte multiidioma</li>
+                        <li>• Servicios del hotel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 hero-gradient">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+                Transforma tu negocio con IA conversacional
+            </h2>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Únete a cientos de empresas que ya han revolucionado su atención al cliente. 
+                Implementación en minutos, resultados inmediatos.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button onclick="openSignupModal()" class="bg-white text-primary px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all transform hover:scale-105 shadow-lg">
+                    Comenzar Ahora
+                </button>
+                <a href="mailto:ventas@conversa.ai" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-primary transition-all">
+                    Hablar con Ventas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="text-2xl font-bold text-primary">ConversaAI</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        La plataforma de chatbots más avanzada para empresas modernas. 
+                        Automatiza tu atención al cliente con IA conversacional.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <span class="text-sm font-bold">TW</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <span class="text-sm font-bold">LI</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <span class="text-sm font-bold">YT</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Producto</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#caracteristicas" class="hover:text-white transition-colors">Características</a></li>
+                        <li><a href="#precios" class="hover:text-white transition-colors">Precios</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Integraciones</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Seguridad</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Industrias</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#industrias" class="hover:text-white transition-colors">E-commerce</a></li>
+                        <li><a href="#industrias" class="hover:text-white transition-colors">Inmobiliaria</a></li>
+                        <li><a href="#industrias" class="hover:text-white transition-colors">Salud</a></li>
+                        <li><a href="#industrias" class="hover:text-white transition-colors">Finanzas</a></li>
+                        <li><a href="#industrias" class="hover:text-white transition-colors">Educación</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Soporte</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Documentación</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Centro de Ayuda</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Estado del Servicio</a></li>
+                        <li><a href="mailto:soporte@conversa.ai" class="hover:text-white transition-colors">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Comunidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    © 2025 ConversaAI. Todos los derechos reservados.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Términos</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookies</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">GDPR</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl p-8 w-full max-w-md relative">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold mb-2">Iniciar Sesión</h3>
+                    <p class="text-gray-600">Accede a tu dashboard de ConversaAI</p>
+                </div>
+                
+                <form onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="tu@empresa.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                            <input type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="••••••••">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors mt-6">
+                        Iniciar Sesión
+                    </button>
+                </form>
+                
+                <div class="text-center mt-6">
+                    <a href="#" class="text-sm text-gray-600 hover:text-primary">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeSignupModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl p-8 w-full max-w-md relative">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold mb-2">Crear Cuenta</h3>
+                    <p class="text-gray-600">Comienza tu transformación digital ahora</p>
+                </div>
+                
+                <form onsubmit="handleSignup(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Empresarial</label>
+                            <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="tu@empresa.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="Tu Empresa S.L.">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Plan</label>
+                            <select id="planSelect" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors">
+                                <option value="starter">Starter - 29€/mes</option>
+                                <option value="professional" selected>Professional - 79€/mes</option>
+                                <option value="business">Business - 149€/mes</option>
+                                <option value="enterprise">Enterprise - 299€/mes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                            <input type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" placeholder="••••••••">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mt-4">
+                        <input type="checkbox" required class="mr-2">
+                        <span class="text-sm text-gray-600">
+                            Acepto los <a href="#" class="text-primary hover:underline">términos de servicio</a> y 
+                            <a href="#" class="text-primary hover:underline">política de privacidad</a>
+                        </span>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors mt-6">
+                        Crear Cuenta y Pagar
+                    </button>
+                </form>
+                
+                <button onclick="closeSignupModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo Chat Messages
+        const chatMessages = [
+            { type: 'user', text: '¡Hola! Necesito ayuda con mi pedido', delay: 1000 },
+            { type: 'bot', text: '¡Hola! Soy Ana, tu asistente virtual. Te ayudo con tu pedido enseguida. ¿Podrías darme tu número de pedido?', delay: 2000 },
+            { type: 'user', text: 'Es el #12345', delay: 3000 },
+            { type: 'bot', text: 'Perfecto! Veo que tu pedido está en camino. Llegará mañana entre 10:00-14:00. ¿Te gustaría recibir notificaciones por WhatsApp?', delay: 4000 },
+            { type: 'user', text: 'Sí, perfecto. ¿Puedo cambiar la dirección?', delay: 5000 },
+            { type: 'bot', text: 'Te transfiero con un agente para cambiar la dirección. ¡Un momento por favor!', delay: 6000 }
+        ];
+
+        let chatIndex = 0;
+        let chatContainer = document.getElementById('chatDemo');
+
+        function addChatMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `max-w-xs p-3 rounded-2xl text-sm ${
+                message.type === 'user' ? 'chat-bubble-user ml-auto' : 'chat-bubble-bot'
+            }`;
+            messageDiv.textContent = message.text;
+            
+            messageDiv.style.opacity = '0';
+            messageDiv.style.transform = 'translateY(20px)';
+            chatContainer.appendChild(messageDiv);
+            
+            // Animate in
+            setTimeout(() => {
+                messageDiv.style.transition = 'all 0.3s ease';
+                messageDiv.style.opacity = '1';
+                messageDiv.style.transform = 'translateY(0)';
+            }, 100);
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function startChatDemo() {
+            if (chatIndex < chatMessages.length) {
+                setTimeout(() => {
+                    addChatMessage(chatMessages[chatIndex]);
+                    chatIndex++;
+                    startChatDemo();
+                }, chatMessages[chatIndex]?.delay || 2000);
+            } else {
+                // Restart the demo after a pause
+                setTimeout(() => {
+                    chatContainer.innerHTML = '';
+                    chatIndex = 0;
+                    startChatDemo();
+                }, 3000);
+            }
+        }
+
+        // Start chat demo when page loads
+        window.addEventListener('load', () => {
+            setTimeout(startChatDemo, 2000);
+        });
+
+        // Pricing toggle functionality
+        let isAnnual = false;
+        const monthlyPrices = { starter: 29, professional: 79, business: 149, enterprise: 299 };
+        const annualPrices = { starter: 23, professional: 63, business: 119, enterprise: 239 };
+
+        function togglePricing(period) {
+            isAnnual = period === 'annual';
+            
+            // Update button states
+            document.getElementById('monthlyBtn').classList.toggle('active', !isAnnual);
+            document.getElementById('annualBtn').classList.toggle('active', isAnnual);
+            
+            // Update prices
+            const prices = isAnnual ? annualPrices : monthlyPrices;
+            Object.keys(prices).forEach(plan => {
+                document.getElementById(`${plan}-price`).textContent = `${prices[plan]}€`;
+            });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Modal functions
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openSignupModal(plan = 'professional') {
+            document.getElementById('signupModal').classList.remove('hidden');
+            document.getElementById('planSelect').value = plan;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Form handlers
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('Funcionalidad de login en desarrollo. Redirigiendo al dashboard...');
+            closeLoginModal();
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            alert('Redirigiendo a Stripe para el pago seguro...');
+            closeSignupModal();
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLoginModal();
+                closeSignupModal();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('.animate-slide-up, .animate-fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>

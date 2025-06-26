@@ -1,0 +1,151 @@
+// Esquema de base de datos para Conversa.ai
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Tenant (Multi-tenancy)
+model Tenant {
+  id                    String    @id @default(cuid())
+  name                  String
+  plan                  String    @default("starter")
+  features              Json      @default("[]")
+  limits                Json      @default("{}")
+  
+  // Stripe
+  stripeCustomerId      String?   @unique
+  stripeSubscriptionId  String?   @unique
+  subscriptionStatus    String?   @default("active")
+  currentPeriodEnd      DateTime?
+  
+  // Configuración
+  isActive              Boolean   @default(true)
+  
+  // Timestamps
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  // Relaciones
+  users                 User[]
+  chatbots              Chatbot[]
+  widgets               Widget[]
+  conversations         Conversation[]
+  
+  @@map("tenants")
+}
+
+// Modelo de Usuario
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String
+  password    String
+  role        String   @default("USER")
+  isActive    Boolean  @default(true)
+  lastLoginAt DateTime?
+  
+  // Relación con tenant
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// Modelo de Chatbot
+model Chatbot {
+  id               String  @id @default(cuid())
+  name             String
+  model            String  @default("gpt-4")
+  systemPrompt     String  @db.Text
+  welcomeMessage   String  @default("¡Hola! ¿En qué puedo ayudarte?")
+  isActive         Boolean @default(true)
+  
+  // Relación con tenant
+  tenantId         String
+  tenant           Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  // Relaciones
+  widgets          Widget[]
+  conversations    Conversation[]
+  
+  @@map("chatbots")
+}
+
+// Modelo de Widget
+model Widget {
+  id              String  @id @default(cuid())
+  name            String
+  config          Json    @default("{}")
+  theme           Json    @default("{}")
+  isActive        Boolean @default(true)
+  
+  // Relaciones
+  tenantId        String
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  chatbotId       String
+  chatbot         Chatbot   @relation(fields: [chatbotId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relaciones
+  conversations   Conversation[]
+  
+  @@map("widgets")
+}
+
+// Modelo de Conversación
+model Conversation {
+  id            String   @id @default(cuid())
+  userId        String?
+  status        String   @default("ACTIVE")
+  
+  // Relaciones
+  tenantId      String
+  tenant        Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  widgetId      String?
+  widget        Widget?  @relation(fields: [widgetId], references: [id], onDelete: SetNull)
+  
+  chatbotId     String?
+  chatbot       Chatbot? @relation(fields: [chatbotId], references: [id], onDelete: SetNull)
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relaciones
+  messages      Message[]
+  
+  @@map("conversations")
+}
+
+// Modelo de Mensaje
+model Message {
+  id               String   @id @default(cuid())
+  content          String   @db.Text
+  sender           String   // USER, BOT
+  
+  // Relación con conversación
+  conversationId   String
+  conversation     Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt        DateTime @default(now())
+  
+  @@map("messages")
+}
